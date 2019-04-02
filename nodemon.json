@@ -1,0 +1,8 @@
+{
+    "verbose": true,
+    "debug": true,
+    "inspect": true,
+    "watch": ["src"],
+    "ext": "ts",
+    "exec": "ts-node ./src/api/config/server/index.ts"
+}
