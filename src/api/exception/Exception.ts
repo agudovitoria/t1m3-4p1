@@ -1,9 +1,9 @@
-export default class Exception extends Error{
-    code: number;
+export default class Exception extends Error {
+    status: number;
 
-    constructor(code: number, message: string) {
+    constructor(status: number, message: string) {
         super(message || 'Generic server error');
 
-        this.code = code || 500;
+        this.status = status || 500;
     }
 }

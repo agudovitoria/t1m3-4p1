@@ -1,11 +1,16 @@
 import { Request, Response, NextFunction, Router } from 'express';
 import TimeController from '../../controllers/TimeController';
+import Exception from '../../exception/Exception';
 
-const wrapAsync :any = (fn :Function) :Function => {
-    return (req :Request, res :Response, next :NextFunction) => {
-        fn(req, res, next).catch(next);
+const manageAsyncExceptions :any = (fn :Function) :Function =>
+    (req :Request, res :Response, next :NextFunction) :void => {
+        fn(req, res, next)
+            .catch((exception :Exception) => {
+                const { status, message } :Exception = exception;
+
+                return res.status(status).json({ message });
+            });
     };
-};
 
 class TimesRouter {
     public router: Router;
@@ -16,8 +21,8 @@ class TimesRouter {
     }
 
     public routes(): void {
-        this.router.get('/', wrapAsync(TimeController.findAllForUserAndDate.bind(TimeController)));
-        this.router.post('/', wrapAsync(TimeController.add.bind(TimeController)));
+        this.router.get('/', manageAsyncExceptions(TimeController.findAllForUserAndDate.bind(TimeController)));
+        this.router.post('/', manageAsyncExceptions(TimeController.add.bind(TimeController)));
     }
 }
 

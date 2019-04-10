@@ -20,7 +20,6 @@ export class Server {
         Cron.init();
         Middleware.init(this);
         Routes.init(this);
-        Middleware.initErrorHandler(this);
     }
 }
 

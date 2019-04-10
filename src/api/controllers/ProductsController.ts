@@ -31,7 +31,7 @@ class ProductsController {
 
             return res.status(200).json(responseTimes);
         } catch (exception) {
-            const code: number = exception instanceof Exception ? exception.code : 500;
+            const code: number = exception instanceof Exception ? exception.status : 500;
             const message: string = exception instanceof Exception ? exception.message : 'Generic exception';
 
             return res.status(code).json(message);
@@ -48,7 +48,7 @@ class ProductsController {
             return res.status(200).json(product);
         } catch (exception) {
             console.log('exception', exception);
-            const code: number = exception instanceof Exception ? exception.code : 500;
+            const code: number = exception instanceof Exception ? exception.status : 500;
             const message: String = exception instanceof Exception ? exception.message : 'Generic exception';
 
             return res.status(code).json(message);

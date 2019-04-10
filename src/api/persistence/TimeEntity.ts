@@ -1,5 +1,5 @@
 import * as connections from '../config/connection/connection';
-import { Document, Schema } from 'mongoose';
+import { Document, HookNextFunction, HookSyncCallback, Model, Query, Schema } from 'mongoose';
 import uuid = require('uuid');
 import { IProductModel } from '../models/Product';
 import Exception from '../exception/Exception';
@@ -49,20 +49,6 @@ const TimeSchema: Schema = new Schema({
     collection: 'Time',
     versionKey: false,
     timestamps: true
-}).pre('save', (next) => {
-    // this will run before saving
-    if (this._doc) {
-        const doc: IProductModel = this._doc;
-
-        doc.validate((err) => {
-            if (err) {
-                throw new Exception(422, 'Cannot validate Time model');
-            }
-        });
-    }
-    next();
-
-    return this;
 });
 
 export default connections.db.model <TimeEntity>('TimeModel', TimeSchema);

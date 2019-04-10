@@ -3,9 +3,9 @@ import { TimeRepository } from './TimeRepository';
 import TimeModel, { TimeEntity } from '../../persistence/TimeEntity';
 
 class TimeRepositoryImpl implements TimeRepository {
-    async FindAll(): Promise<TimeEntity[]> {
+    async FindAllByUserAndDate(user: string, date: Date): Promise<TimeEntity[]> {
         try {
-            return await TimeModel.find();
+            return await TimeModel.find({ user, date });
         } catch (error) {
             throw new Error(error.message);
         }
