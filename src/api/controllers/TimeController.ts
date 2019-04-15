@@ -58,6 +58,8 @@ class TimeController {
         const timeEntity :TimeEntity = await this.repository.Insert(timeToPersist);
         const time :Time = new Time().fromEntity(timeEntity);
 
+        console.debug(`New time added for user ${user} by date ${date}`, time);
+
         return res.status(HTTP_OK).json(time);
     }
 }

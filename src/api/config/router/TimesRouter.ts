@@ -8,7 +8,7 @@ const manageAsyncExceptions :any = (fn :Function) :Function =>
             .catch((exception :Exception) => {
                 const { status, message } :Exception = exception;
 
-                return res.status(status).json({ message });
+                return res.status(status || 500).json({ message });
             });
     };
 
