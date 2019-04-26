@@ -1,6 +1,0 @@
-projectKey=t1m3.4p1
-serverUrl=http://localhost:9999
-serverVersion=7.7.0.23042
-dashboardUrl=http://localhost:9999/dashboard?id=t1m3.4p1
-ceTaskId=AWohqEuDkdzPaLxYkGgL
-ceTaskUrl=http://localhost:9999/api/ce/task?id=AWohqEuDkdzPaLxYkGgL

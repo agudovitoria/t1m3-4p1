@@ -1,8 +1,6 @@
 {
-    "verbose": true,
-    "debug": true,
-    "inspect": true,
-    "watch": ["src"],
-    "ext": "ts",
-    "exec": "ts-node ./src/api/config/server/index.ts"
+  "watch": ["src"],
+  "ext": "ts",
+  "ignore": ["src/**/*.spec.ts"],
+  "exec": "ts-node -r tsconfig-paths/register src/main.ts"
 }
