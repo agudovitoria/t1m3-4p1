@@ -39,7 +39,7 @@ describe('TimeRequest validations (unit)', () => {
         expect(errors.length).toBe(1);
         const userFieldError = errors.pop();
         expect(userFieldError.property).toBe('user');
-        expect(userFieldError.constraints.isNotEmpty).toBeDefined();
+        expect(userFieldError.constraints).toHaveProperty('isNotEmpty');
     });
 
     it('should respond with error if user is not a valid UUID', async () => {
@@ -49,7 +49,7 @@ describe('TimeRequest validations (unit)', () => {
         expect(errors.length).toBe(1);
         const userFieldError = errors.pop();
         expect(userFieldError.property).toBe('user');
-        expect(userFieldError.constraints.isUuid).toBeDefined();
+        expect(userFieldError.constraints).toHaveProperty('isUuid');
     });
 
     it('should respond with error if date is empty', async () => {
@@ -59,7 +59,7 @@ describe('TimeRequest validations (unit)', () => {
         expect(errors.length).toBe(1);
         const dateFieldError = errors.pop();
         expect(dateFieldError.property).toBe('date');
-        expect(dateFieldError.constraints.isNotEmpty).toBeDefined();
+        expect(dateFieldError.constraints).toHaveProperty('isNotEmpty');
     });
 
     it('should respond with error if date is not a valid ISO date', async () => {
@@ -69,7 +69,7 @@ describe('TimeRequest validations (unit)', () => {
         expect(errors.length).toBe(1);
         const dateFieldError = errors.pop();
         expect(dateFieldError.property).toBe('date');
-        expect(dateFieldError.constraints.isDateString).toBeDefined();
+        expect(dateFieldError.constraints).toHaveProperty('isDateString');
     });
 
     it('should respond with error if product is empty', async () => {
@@ -79,7 +79,7 @@ describe('TimeRequest validations (unit)', () => {
         expect(errors.length).toBe(1);
         const productFieldError = errors.pop();
         expect(productFieldError.property).toBe('product');
-        expect(productFieldError.constraints.isNotEmpty).toBeDefined();
+        expect(productFieldError.constraints).toHaveProperty('isNotEmpty');
     });
 
     it('should respond with error if product is not a valid UUID', async () => {
@@ -89,7 +89,7 @@ describe('TimeRequest validations (unit)', () => {
         expect(errors.length).toBe(1);
         const productFieldError = errors.pop();
         expect(productFieldError.property).toBe('product');
-        expect(productFieldError.constraints.isUuid).toBeDefined();
+        expect(productFieldError.constraints).toHaveProperty('isUuid');
     });
 
     it('should respond with error if concept is empty', async () => {
@@ -99,7 +99,7 @@ describe('TimeRequest validations (unit)', () => {
         expect(errors.length).toBe(1);
         const conceptFieldError = errors.pop();
         expect(conceptFieldError.property).toBe('concept');
-        expect(conceptFieldError.constraints.isNotEmpty).toBeDefined();
+        expect(conceptFieldError.constraints).toHaveProperty('isNotEmpty');
     });
 
     it('should respond with error if concept is not a valid UUID', async () => {
@@ -109,7 +109,7 @@ describe('TimeRequest validations (unit)', () => {
         expect(errors.length).toBe(1);
         const conceptFieldError = errors.pop();
         expect(conceptFieldError.property).toBe('concept');
-        expect(conceptFieldError.constraints.isUuid).toBeDefined();
+        expect(conceptFieldError.constraints).toHaveProperty('isUuid');
     });
 
     it('should respond with error if timing is empty', async () => {
@@ -119,7 +119,7 @@ describe('TimeRequest validations (unit)', () => {
         expect(errors.length).toBe(1);
         const timingFieldError = errors.pop();
         expect(timingFieldError.property).toBe('timing');
-        expect(timingFieldError.constraints.isNotEmpty).toBeDefined();
+        expect(timingFieldError.constraints).toHaveProperty('isNotEmpty');
     });
 
     it('should respond with error if timing is not a valid number', async () => {
@@ -129,7 +129,7 @@ describe('TimeRequest validations (unit)', () => {
         expect(errors.length).toBe(1);
         const timingFieldError = errors.pop();
         expect(timingFieldError.property).toBe('timing');
-        expect(timingFieldError.constraints.isNumber).toBeDefined();
+        expect(timingFieldError.constraints).toHaveProperty('isNumber');
     });
 
     it('should respond with error if validated is empty', async () => {
@@ -139,7 +139,7 @@ describe('TimeRequest validations (unit)', () => {
         expect(errors.length).toBe(1);
         const validatedFieldError = errors.pop();
         expect(validatedFieldError.property).toBe('validated');
-        expect(validatedFieldError.constraints.isNotEmpty).toBeDefined();
+        expect(validatedFieldError.constraints).toHaveProperty('isNotEmpty');
     });
 
     it('should respond with error if validated is not a valid boolean', async () => {
@@ -149,6 +149,6 @@ describe('TimeRequest validations (unit)', () => {
         expect(errors.length).toBe(1);
         const validatedFieldError = errors.pop();
         expect(validatedFieldError.property).toBe('validated');
-        expect(validatedFieldError.constraints.isBoolean).toBeDefined();
+        expect(validatedFieldError.constraints).toHaveProperty('isBoolean');
     });
 });
