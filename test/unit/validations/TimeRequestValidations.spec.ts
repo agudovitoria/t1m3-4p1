@@ -1,20 +1,19 @@
 import * as uuid from 'uuid';
 import * as moment from 'moment';
-import { IsDateString, validate } from 'class-validator';
+import { validate } from 'class-validator';
 import TimeRequest from '../../../src/domain/request/TimeRequest';
 
 describe('TimeRequest validations (unit)', () => {
     const USER = uuid.v4();
     const DATE = moment()
         .startOf('day')
-        .toDate()
-        .toISOString();
+        .toDate();
     const PRODUCT = uuid.v4();
     const CONCEPT = uuid.v4();
     const TIMING = 2;
     const VALIDATED = false;
 
-    const fullfilledTimeRequest = () => {
+    const fulfilledTimeRequest = () => {
         const timeRequest = new TimeRequest();
         timeRequest.user = USER;
         timeRequest.date = DATE;
@@ -27,13 +26,13 @@ describe('TimeRequest validations (unit)', () => {
     };
 
     it('should respond without error if request is valid', async () => {
-        const timeRequest = fullfilledTimeRequest();
+        const timeRequest = fulfilledTimeRequest();
         const errors = await validate(timeRequest);
         expect(errors.length).toBe(0);
     });
 
     it('should respond with error if user is empty', async () => {
-        const timeRequest = fullfilledTimeRequest();
+        const timeRequest = fulfilledTimeRequest();
         delete timeRequest.user;
         const errors = await validate(timeRequest);
         expect(errors.length).toBe(1);
@@ -43,7 +42,7 @@ describe('TimeRequest validations (unit)', () => {
     });
 
     it('should respond with error if user is not a valid UUID', async () => {
-        const timeRequest = fullfilledTimeRequest();
+        const timeRequest = fulfilledTimeRequest();
         timeRequest.user = 'user';
         const errors = await validate(timeRequest);
         expect(errors.length).toBe(1);
@@ -53,7 +52,7 @@ describe('TimeRequest validations (unit)', () => {
     });
 
     it('should respond with error if date is empty', async () => {
-        const timeRequest = fullfilledTimeRequest();
+        const timeRequest = fulfilledTimeRequest();
         delete timeRequest.date;
         const errors = await validate(timeRequest);
         expect(errors.length).toBe(1);
@@ -62,18 +61,8 @@ describe('TimeRequest validations (unit)', () => {
         expect(dateFieldError.constraints).toHaveProperty('isNotEmpty');
     });
 
-    it('should respond with error if date is not a valid ISO date', async () => {
-        const timeRequest = fullfilledTimeRequest();
-        timeRequest.date = '17-01-2011';
-        const errors = await validate(timeRequest);
-        expect(errors.length).toBe(1);
-        const dateFieldError = errors.pop();
-        expect(dateFieldError.property).toBe('date');
-        expect(dateFieldError.constraints).toHaveProperty('isDateString');
-    });
-
     it('should respond with error if product is empty', async () => {
-        const timeRequest = fullfilledTimeRequest();
+        const timeRequest = fulfilledTimeRequest();
         delete timeRequest.product;
         const errors = await validate(timeRequest);
         expect(errors.length).toBe(1);
@@ -83,7 +72,7 @@ describe('TimeRequest validations (unit)', () => {
     });
 
     it('should respond with error if product is not a valid UUID', async () => {
-        const timeRequest = fullfilledTimeRequest();
+        const timeRequest = fulfilledTimeRequest();
         timeRequest.product = 'product';
         const errors = await validate(timeRequest);
         expect(errors.length).toBe(1);
@@ -93,7 +82,7 @@ describe('TimeRequest validations (unit)', () => {
     });
 
     it('should respond with error if concept is empty', async () => {
-        const timeRequest = fullfilledTimeRequest();
+        const timeRequest = fulfilledTimeRequest();
         delete timeRequest.concept;
         const errors = await validate(timeRequest);
         expect(errors.length).toBe(1);
@@ -103,7 +92,7 @@ describe('TimeRequest validations (unit)', () => {
     });
 
     it('should respond with error if concept is not a valid UUID', async () => {
-        const timeRequest = fullfilledTimeRequest();
+        const timeRequest = fulfilledTimeRequest();
         timeRequest.concept = 'concept';
         const errors = await validate(timeRequest);
         expect(errors.length).toBe(1);
@@ -113,7 +102,7 @@ describe('TimeRequest validations (unit)', () => {
     });
 
     it('should respond with error if timing is empty', async () => {
-        const timeRequest = fullfilledTimeRequest();
+        const timeRequest = fulfilledTimeRequest();
         delete timeRequest.timing;
         const errors = await validate(timeRequest);
         expect(errors.length).toBe(1);
@@ -123,7 +112,7 @@ describe('TimeRequest validations (unit)', () => {
     });
 
     it('should respond with error if timing is not a valid number', async () => {
-        const timeRequest = fullfilledTimeRequest();
+        const timeRequest = fulfilledTimeRequest();
         timeRequest.timing = null;
         const errors = await validate(timeRequest);
         expect(errors.length).toBe(1);
@@ -133,7 +122,7 @@ describe('TimeRequest validations (unit)', () => {
     });
 
     it('should respond with error if validated is empty', async () => {
-        const timeRequest = fullfilledTimeRequest();
+        const timeRequest = fulfilledTimeRequest();
         delete timeRequest.validated;
         const errors = await validate(timeRequest);
         expect(errors.length).toBe(1);
@@ -143,7 +132,7 @@ describe('TimeRequest validations (unit)', () => {
     });
 
     it('should respond with error if validated is not a valid boolean', async () => {
-        const timeRequest = fullfilledTimeRequest();
+        const timeRequest = fulfilledTimeRequest();
         timeRequest.validated = null;
         const errors = await validate(timeRequest);
         expect(errors.length).toBe(1);

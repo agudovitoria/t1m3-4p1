@@ -1,5 +1,5 @@
 export default class TimeRepositoryProviderMock {
-    async getDevices(group): Promise<any> {
+    async getDevices(): Promise<any> {
         return [];
     }
 }

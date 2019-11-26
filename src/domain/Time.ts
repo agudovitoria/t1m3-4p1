@@ -1,10 +1,15 @@
 import { TimeEntity } from '../persistence/time/TimeEntity';
+import { IsUUID } from 'class-validator';
 
 export default class Time {
+    @IsUUID()
     id: string;
+    @IsUUID()
     user: string;
-    date: string;
+    date: Date;
+    @IsUUID()
     product: string;
+    @IsUUID()
     concept: string;
     timing: number;
     validated: boolean;
@@ -12,7 +17,7 @@ export default class Time {
     constructor() {
         this.id = null;
         this.user = null;
-        this.date = null;
+        this.date = new Date();
         this.product = null;
         this.concept = null;
         this.timing = 0;
@@ -22,7 +27,7 @@ export default class Time {
     fromEntity(timeEntity: TimeEntity): Time {
         this.id = timeEntity._id;
         this.user = timeEntity.user;
-        this.date = timeEntity.date.toString();
+        this.date = timeEntity.date;
         this.product = timeEntity.product;
         this.concept = timeEntity.concept;
         this.timing = timeEntity.timing;
@@ -34,7 +39,7 @@ export default class Time {
     fromRequest(request: any): Time {
         const { user, date, product, concept, timing, validated }: Time = request;
         this.user = user || null;
-        this.date = date || null;
+        this.date = date || new Date();
         this.product = product || null;
         this.concept = concept || null;
         this.timing = timing || 0;

@@ -1,3 +1,5 @@
+import Time from '../../../../src/domain/Time';
+
 export default class TimeMongooseRepositoryMock {
     async findByUserAndDate(): Promise<any> {
         return [];
@@ -7,8 +9,8 @@ export default class TimeMongooseRepositoryMock {
         return [];
     }
 
-    async insert(): Promise<any> {
-        return null;
+    async insert(time: Time): Promise<any> {
+        return time;
     }
 
     async delete(): Promise<any> {

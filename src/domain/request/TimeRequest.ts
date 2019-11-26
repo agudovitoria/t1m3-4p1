@@ -1,4 +1,4 @@
-import { IsBoolean, IsDateString, IsNotEmpty, IsNumber, IsUUID } from 'class-validator';
+import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsUUID } from 'class-validator';
 
 export default class TimeRequest {
     @IsNotEmpty()
@@ -6,8 +6,8 @@ export default class TimeRequest {
     user: string;
 
     @IsNotEmpty()
-    @IsDateString()
-    date: string;
+    @IsDate()
+    date: Date;
 
     @IsNotEmpty()
     @IsUUID()
