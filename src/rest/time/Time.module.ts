@@ -9,7 +9,8 @@ import { TimeSchema } from '../../persistence/time/TimeSchema';
 
 @Module({
     imports: [
-        MongooseModule.forRoot('mongodb://localhost:27017/t1m3-4pp', { useNewUrlParser: true }),
+      // TODO: Pasar a variables de entorno de configuracion
+        MongooseModule.forRoot('mongodb://localhost:27017/t1m3-4pp', { useNewUrlParser: true, useUnifiedTopology: true }),
         MongooseModule.forFeature([{ name: 'Time', schema: TimeSchema }]),
     ],
     controllers: [TimeController],

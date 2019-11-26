@@ -1,5 +1,6 @@
 import Time from '../../domain/Time';
+import TimeSearchCriteria from '../../domain/request/TimeSearchCriteria';
 
 export default interface TimeQuery {
-    execute(user :string, date :Date) :Promise<Time[]>;
+  execute(timeSearchCriteria: TimeSearchCriteria): Promise<Time[]>;
 }

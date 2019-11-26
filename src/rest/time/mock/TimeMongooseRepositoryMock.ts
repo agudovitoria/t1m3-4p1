@@ -1,6 +1,4 @@
 export default class TimeMongooseRepositoryMock {
-    constructor(private readonly timeModel: any) {}
-
     async findByUserAndDate(): Promise<any> {
         return [];
     }
