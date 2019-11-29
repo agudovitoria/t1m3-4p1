@@ -1,4 +1,4 @@
-import Time from '../../../../src/domain/Time';
+import Time from '../../../src/domain/Time';
 
 export default class TimeMongooseRepositoryMock {
     async findByUserAndDate(): Promise<any> {

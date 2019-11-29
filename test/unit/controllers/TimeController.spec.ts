@@ -9,7 +9,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import TimeRequest from '../../../src/domain/request/TimeRequest';
 import Time from '../../../src/domain/Time';
 
-describe('TimeController /api/v1/times', () => {
+describe('TimeController', () => {
   let timeController: TimeController;
   let getTimeByUserAndDate: GetTimeByUserAndDate;
   let addTimeUseCase: AddTimeUseCase;

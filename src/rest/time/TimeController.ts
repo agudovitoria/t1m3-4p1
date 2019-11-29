@@ -4,6 +4,7 @@ import TimeRequest from '../../domain/request/TimeRequest';
 import { GetTimeByUserAndDate } from '../../query/time/GetTimeByUserAndDate';
 import { AddTimeUseCase } from '../../usecase/time/AddTimeUseCase';
 import TimeSearchCriteria from '../../domain/request/TimeSearchCriteria';
+import { validateOrReject } from 'class-validator';
 
 @Controller('times')
 export class TimeController {
@@ -17,7 +18,9 @@ export class TimeController {
   findAllForUserAndDate(@Query() criteria: TimeSearchCriteria): Promise<Time[]> {
     this.log.debug(`Requested get times for user ${criteria.user} by date ${criteria.date}`);
 
-    return this.getTimeByUserAndDate.execute(criteria);
+    return validateOrReject(criteria)
+      .then(() => this.getTimeByUserAndDate.execute(criteria));
+
   }
 
   @Post()
