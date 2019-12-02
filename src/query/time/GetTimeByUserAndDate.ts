@@ -12,8 +12,7 @@ export class GetTimeByUserAndDate implements TimeQuery {
     }
 
     async execute(timeSearchCriteria: TimeSearchCriteria): Promise<Time[]> {
-        const { user, date } = timeSearchCriteria;
-        return this.repository.findByUserAndDate(user, date)
+        return this.repository.find(timeSearchCriteria)
             .then(timeEntities => timeEntities
                 .map((timeEntity: TimeEntity) => new Time()
                     .fromEntity(timeEntity)));

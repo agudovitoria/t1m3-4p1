@@ -1,16 +1,13 @@
 import { TimeEntity } from '../persistence/time/TimeEntity';
-import { IsUUID } from 'class-validator';
+import { v4String } from 'uuid/interfaces';
+import v4 = require('uuid/v4');
 
 export default class Time {
-    @IsUUID()
-    id: string;
-    @IsUUID()
-    user: string;
+    id: v4String;
+    user: v4String;
     date: Date;
-    @IsUUID()
-    product: string;
-    @IsUUID()
-    concept: string;
+    product: v4String;
+    concept: v4String;
     timing: number;
     validated: boolean;
 
@@ -34,6 +31,18 @@ export default class Time {
         this.validated = timeEntity.validated;
 
         return this;
+    }
+
+    toEntity(): TimeEntity {
+        return {
+            _id: this.id || v4(),
+            user: this.user,
+            date: this.date,
+            product: this.product,
+            concept: this.concept,
+            timing: this.timing,
+            validated: this.validated,
+        } as TimeEntity;
     }
 
     fromRequest(request: any): Time {

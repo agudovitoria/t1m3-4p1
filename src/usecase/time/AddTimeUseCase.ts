@@ -12,9 +12,8 @@ export class AddTimeUseCase implements TimeUseCase {
     }
 
     async execute(time: Time): Promise<Time> {
-        const timeToPersist: any = new Time().toJson();
-
-        return this.repository.insert(timeToPersist)
+        return this.repository
+          .create(time.toEntity())
             .then(timeEntity => new Time().fromEntity(timeEntity));
     }
 }

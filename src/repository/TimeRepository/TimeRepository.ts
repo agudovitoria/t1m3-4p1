@@ -1,8 +1,10 @@
 import { TimeEntity } from '../../persistence/time/TimeEntity';
+import TimeSearchCriteria from '../../domain/request/TimeSearchCriteria';
+import { v4String } from 'uuid/interfaces';
 
 export interface TimeRepository {
-    findByUserAndDate(user: string, date: Date): Promise<TimeEntity[]>;
-    findById(id: string): Promise<TimeEntity>;
-    insert(TimeEntity: TimeEntity): Promise<TimeEntity>;
-    delete(id: string): Promise<TimeEntity>;
+    find(timeSearchCriteria: TimeSearchCriteria): Promise<TimeEntity[]>;
+    findById(id: v4String): Promise<TimeEntity>;
+    create(TimeEntity: TimeEntity): Promise<TimeEntity>;
+    delete(id: v4String): Promise<TimeEntity>;
 }

@@ -1,13 +1,10 @@
 import { GetTimeByUserAndDate } from '../../src/query/time/GetTimeByUserAndDate';
 import { AddTimeUseCase } from '../../src/usecase/time/AddTimeUseCase';
 import { Test, TestingModule } from '@nestjs/testing';
-import { TimeController } from '../../src/rest/time/TimeController';
-import { Logger } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
 import TimeMongooseRepositoryMock from './mock/TimeMongooseRepositoryMock';
 import * as supertest from 'supertest';
 import { AppModule } from '../../src/app.module';
-import { NestFactory } from '@nestjs/core';
 
 describe('/api/v1/times', () => {
   let app;
