@@ -1,7 +1,7 @@
 import Time from '../../domain/Time';
 import { Body, Controller, Get, Logger, Post, Query } from '@nestjs/common';
 import TimeRequest from '../../domain/request/TimeRequest';
-import { GetTimeByUserAndDate } from '../../query/time/GetTimeByUserAndDate';
+import { FindTimesByCriteria } from '../../query/time/FindTimesByCriteria';
 import { AddTimeUseCase } from '../../usecase/time/AddTimeUseCase';
 import TimeSearchCriteria from '../../domain/request/TimeSearchCriteria';
 import { validateOrReject } from 'class-validator';
@@ -10,7 +10,7 @@ import { validateOrReject } from 'class-validator';
 export class TimeController {
   constructor(
     private readonly log: Logger,
-    private readonly getTimeByUserAndDate: GetTimeByUserAndDate,
+    private readonly getTimeByUserAndDate: FindTimesByCriteria,
     private readonly addTimeUseCase: AddTimeUseCase) {}
 
   /**
@@ -82,7 +82,7 @@ export class TimeController {
    *    }
    */
   @Get()
-  findAllForUserAndDate(@Query() criteria: TimeSearchCriteria): Promise<Time[]> {
+  findByCriteria(@Query() criteria: TimeSearchCriteria): Promise<Time[]> {
     this.log.debug(`Requested get times for user ${criteria.user} by date ${criteria.date}`);
 
     return validateOrReject(criteria)

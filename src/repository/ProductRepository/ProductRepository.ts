@@ -1,4 +1,4 @@
-import { ProductEntity } from '../../persistence/product/ProductEntity';
+import { ProductEntity } from '../../persistence/ProductEntity';
 
 export interface ProductRepository {
     FindAll(): Promise<ProductEntity[]>;

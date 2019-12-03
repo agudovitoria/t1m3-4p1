@@ -1,4 +1,4 @@
-import { ProductEntity } from '../persistence/product/ProductEntity';
+import { ProductEntity } from '../persistence/ProductEntity';
 
 export default class Product {
     id: string;

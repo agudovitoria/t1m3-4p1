@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import ConceptsController from '../../controllers/ConceptsController';
+import ConceptsController from '../../rest/concept/ConceptsController';
 
 class ConceptsRouter {
     public router: Router;
@@ -10,7 +10,7 @@ class ConceptsRouter {
     }
 
     public routes(): void {
-        this.router.get('/', ConceptsController.findAllForUser.bind(ConceptsController));
+        this.router.get('/', ConceptsController.findByCriteria.bind(ConceptsController));
         this.router.post('/', ConceptsController.add.bind(ConceptsController));
     }
 }

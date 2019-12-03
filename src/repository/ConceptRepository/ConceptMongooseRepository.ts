@@ -1,39 +1,30 @@
-/* tslint:disable:function-name */
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Injectable } from '@nestjs/common';
+import { v4String } from 'uuid/interfaces';
+import { ConceptEntity } from '../../persistence/ConceptEntity';
+import ConceptSearchCriteria from '../../domain/request/ConceptSearchCriteria';
 import { ConceptRepository } from './ConceptRepository';
-import TimeModel, { ConceptEntity } from '../../persistence/concept/ConceptEntity';
 
-class ConceptMongooseRepository implements ConceptRepository {
-    async FindAll(): Promise<ConceptEntity[]> {
-        try {
-            return await TimeModel.find();
-        } catch (error) {
-            throw new Error(error.message);
-        }
+@Injectable()
+export default class ConceptMongooseRepository implements ConceptRepository {
+    constructor(@InjectModel('Concept') private readonly conceptModel: Model<ConceptEntity>) {}
+
+    async find(conceptSearchCriteria: ConceptSearchCriteria): Promise<ConceptEntity[]> {
+        return this.conceptModel.find(conceptSearchCriteria.getCriteria()).exec();
     }
 
-    async Find(id: string): Promise<ConceptEntity> {
-        try {
-            return await TimeModel.findById(id);
-        } catch (error) {
-            throw new Error(error.message);
-        }
+    async findById(id: v4String): Promise<ConceptEntity> {
+        return this.conceptModel.findById(id).exec();
     }
 
-    async Insert(body: ConceptEntity): Promise<ConceptEntity> {
-        try {
-            return await TimeModel.create(body);
-        } catch (error) {
-            throw new Error(error.message);
-        }
+    async create(conceptEntity: ConceptEntity): Promise<ConceptEntity> {
+        const createdTime = new this.conceptModel(conceptEntity);
+
+        return await createdTime.save();
     }
 
-    async Delete(id: string): Promise<ConceptEntity> {
-        try {
-            return await TimeModel.remove({ _id: id });
-        } catch (error) {
-            throw new Error(error.message);
-        }
+    async delete(id: v4String): Promise<any> {
+        return this.conceptModel.deleteOne({ _id: id }).exec();
     }
 }
-
-export default new ConceptMongooseRepository();

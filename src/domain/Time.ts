@@ -1,4 +1,4 @@
-import { TimeEntity } from '../persistence/time/TimeEntity';
+import { TimeEntity } from '../persistence/TimeEntity';
 import { v4String } from 'uuid/interfaces';
 import v4 = require('uuid/v4');
 
@@ -22,7 +22,7 @@ export default class Time {
     }
 
     fromEntity(timeEntity: TimeEntity): Time {
-        this.id = timeEntity._id;
+        this.id = timeEntity.id;
         this.user = timeEntity.user;
         this.date = timeEntity.date;
         this.product = timeEntity.product;
@@ -35,7 +35,7 @@ export default class Time {
 
     toEntity(): TimeEntity {
         return {
-            _id: this.id || v4(),
+            id: this.id || v4(),
             user: this.user,
             date: this.date,
             product: this.product,

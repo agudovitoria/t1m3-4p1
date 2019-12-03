@@ -1,8 +1,10 @@
-import { ConceptEntity } from '../../persistence/concept/ConceptEntity';
+import { ConceptEntity } from '../../persistence/ConceptEntity';
+import { v4String } from 'uuid/interfaces';
+import ConceptSearchCriteria from '../../domain/request/ConceptSearchCriteria';
 
 export interface ConceptRepository {
-    FindAll(): Promise<ConceptEntity[]>;
-    Find(id: string): Promise<ConceptEntity>;
-    Insert(ConceptEntity: ConceptEntity): Promise<ConceptEntity>;
-    Delete(id: string): Promise<ConceptEntity>;
+    find(conceptSearchCriteria: ConceptSearchCriteria): Promise<ConceptEntity[]>;
+    findById(id: v4String): Promise<ConceptEntity>;
+    create(conceptEntity: ConceptEntity): Promise<ConceptEntity>;
+    delete(id: v4String): Promise<ConceptEntity>;
 }

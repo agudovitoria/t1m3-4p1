@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { when } from 'jest-when';
 import { TimeModule } from '../../../src/rest/time/Time.module';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { GetTimeByUserAndDate } from '../../../src/query/time/GetTimeByUserAndDate';
+import { FindTimesByCriteria } from '../../../src/query/time/FindTimesByCriteria';
 import { AddTimeUseCase } from '../../../src/usecase/time/AddTimeUseCase';
 import any = jasmine.any;
 
@@ -29,7 +29,7 @@ describe('TimeController (e2e)', () => {
     beforeEach(async () => {
         const moduleFixture: TestingModule = await Test.createTestingModule({
             imports: [TimeModule],
-        }).overrideProvider(GetTimeByUserAndDate)
+        }).overrideProvider(FindTimesByCriteria)
             .useValue(getTimeByUserAndDate)
             .overrideProvider(AddTimeUseCase)
             .useValue(addTimeUseCase)

@@ -1,14 +1,12 @@
 import Time from '../../domain/Time';
-import { TimeRepository } from '../../repository/TimeRepository/TimeRepository';
 import TimeUseCase from './TimeUseCase';
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import TimePostgresRepository from '../../repository/TimeRepository/TimePostgresRepository';
 
 @Injectable()
 export class AddTimeUseCase implements TimeUseCase {
     constructor(
-        @InjectModel('Time')
-        private readonly repository: TimeRepository) {
+        private readonly repository: TimePostgresRepository) {
     }
 
     async execute(time: Time): Promise<Time> {

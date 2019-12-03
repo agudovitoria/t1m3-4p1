@@ -1,4 +1,4 @@
-import { GetTimeByUserAndDate } from '../../src/query/time/GetTimeByUserAndDate';
+import { FindTimesByCriteria } from '../../src/query/time/FindTimesByCriteria';
 import { AddTimeUseCase } from '../../src/usecase/time/AddTimeUseCase';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
@@ -8,7 +8,7 @@ import { AppModule } from '../../src/app.module';
 
 describe('/api/v1/times', () => {
   let app;
-  let getTimeByUserAndDate: GetTimeByUserAndDate;
+  let getTimeByUserAndDate: FindTimesByCriteria;
   let addTimeUseCase: AddTimeUseCase;
 
   const USER = '25dde6c8-fe83-4211-b3ca-ec1b5a15e19d';
@@ -18,7 +18,7 @@ describe('/api/v1/times', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
       providers: [
-        GetTimeByUserAndDate,
+        FindTimesByCriteria,
         AddTimeUseCase,
         {
           provide: getModelToken('Time'),
@@ -32,7 +32,7 @@ describe('/api/v1/times', () => {
     }).compile();
 
     app = module.createNestApplication();
-    getTimeByUserAndDate = module.get<GetTimeByUserAndDate>(GetTimeByUserAndDate);
+    getTimeByUserAndDate = module.get<FindTimesByCriteria>(FindTimesByCriteria);
     addTimeUseCase = module.get<AddTimeUseCase>(AddTimeUseCase);
 
     await app.init();

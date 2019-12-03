@@ -1,29 +1,38 @@
-import { ConceptEntity } from '../persistence/concept/ConceptEntity';
+import { ConceptEntity } from '../persistence/ConceptEntity';
+import { v4String } from 'uuid/interfaces';
+import v4 = require('uuid/v4');
 
 export default class Concept {
-    id: string;
-    name: string;
+  id: v4String;
+  name: string;
 
-    constructor() {
-        this.id = null;
-        this.name = null;
-    }
+  constructor() {
+    this.id = null;
+    this.name = null;
+  }
 
-    fromEntity(conceptEntity: ConceptEntity) :Concept {
-        this.id = conceptEntity._id;
-        this.name = conceptEntity.name;
+  fromEntity(conceptEntity: ConceptEntity): Concept {
+    this.id = conceptEntity._id;
+    this.name = conceptEntity.name;
 
-        return this;
-    }
+    return this;
+  }
 
-    fromJson(request: any) :Concept {
-        const { name } :Concept = request;
-        this.name = name || null;
+  toEntity(): ConceptEntity {
+    return {
+      _id: this.id || v4(),
+      name: this.name,
+    } as ConceptEntity;
+  }
 
-        return this;
-    }
+  fromReques(request: any): Concept {
+    const { name }: Concept = request;
+    this.name = name || null;
 
-    toJson() :object {
-        return { name: this.name };
-    }
+    return this;
+  }
+
+  toJson(): object {
+    return { name: this.name };
+  }
 }

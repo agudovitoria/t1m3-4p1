@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TimeController } from '../../../src/rest/time/TimeController';
 import { Logger } from '@nestjs/common';
-import { GetTimeByUserAndDate } from '../../../src/query/time/GetTimeByUserAndDate';
+import { FindTimesByCriteria } from '../../../src/query/time/FindTimesByCriteria';
 import { AddTimeUseCase } from '../../../src/usecase/time/AddTimeUseCase';
 import TimeSearchCriteria from '../../../src/domain/request/TimeSearchCriteria';
 import TimeMongooseRepositoryMock from './mock/TimeMongooseRepositoryMock';
@@ -11,7 +11,7 @@ import Time from '../../../src/domain/Time';
 
 describe('TimeController', () => {
   let timeController: TimeController;
-  let getTimeByUserAndDate: GetTimeByUserAndDate;
+  let getTimeByUserAndDate: FindTimesByCriteria;
   let addTimeUseCase: AddTimeUseCase;
 
   const USER = '25dde6c8-fe83-4211-b3ca-ec1b5a15e19d';
@@ -22,7 +22,7 @@ describe('TimeController', () => {
       controllers: [TimeController],
       providers: [
         Logger,
-        GetTimeByUserAndDate,
+        FindTimesByCriteria,
         AddTimeUseCase,
         {
           provide: getModelToken('Time'),
@@ -36,7 +36,7 @@ describe('TimeController', () => {
     }).compile();
 
     timeController = module.get<TimeController>(TimeController);
-    getTimeByUserAndDate = module.get<GetTimeByUserAndDate>(GetTimeByUserAndDate);
+    getTimeByUserAndDate = module.get<FindTimesByCriteria>(FindTimesByCriteria);
     addTimeUseCase = module.get<AddTimeUseCase>(AddTimeUseCase);
   });
 
@@ -54,7 +54,7 @@ describe('TimeController', () => {
       const timeSearchCriteria = new TimeSearchCriteria();
       timeSearchCriteria.user = USER;
       timeSearchCriteria.date = DATE;
-      await timeController.findAllForUserAndDate(timeSearchCriteria);
+      await timeController.findByCriteria(timeSearchCriteria);
       expect(getTimeByUserAndDate.execute).toHaveBeenCalled();
     });
   });

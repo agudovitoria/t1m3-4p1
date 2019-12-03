@@ -1,6 +1,6 @@
 /* tslint:disable:function-name */
 import { ProductRepository } from './ProductRepository';
-import TimeModel, { ProductEntity } from '../../persistence/product/ProductEntity';
+import TimeModel, { ProductEntity } from '../../persistence/ProductEntity';
 
 class ProductMongooseRepository implements ProductRepository {
     async FindAll(): Promise<ProductEntity[]> {
