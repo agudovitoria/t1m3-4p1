@@ -12,7 +12,7 @@ export default class Concept {
   }
 
   fromEntity(conceptEntity: ConceptEntity): Concept {
-    this.id = conceptEntity._id;
+    this.id = conceptEntity.id;
     this.name = conceptEntity.name;
 
     return this;
@@ -20,19 +20,23 @@ export default class Concept {
 
   toEntity(): ConceptEntity {
     return {
-      _id: this.id || v4(),
+      id: this.id || v4(),
       name: this.name,
     } as ConceptEntity;
   }
 
   fromReques(request: any): Concept {
-    const { name }: Concept = request;
+    const { id, name }: Concept = request;
+    this.id = id;
     this.name = name || null;
 
     return this;
   }
 
   toJson(): object {
-    return { name: this.name };
+    return {
+      id: this.id,
+      name: this.name,
+    };
   }
 }

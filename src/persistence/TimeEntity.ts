@@ -9,18 +9,18 @@ export class TimeEntity {
   @PrimaryGeneratedColumn('uuid')
   id: v4String;
 
-  @ManyToOne(type => UserEntity, user => user.id)
+  @ManyToOne(() => UserEntity, user => user.id, { eager: true })
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
   @Column({ type: 'date' })
   date: Date;
 
-  @ManyToOne(type => ProductEntity, product => product.id)
+  @ManyToOne(() => ProductEntity, product => product.id, { eager: true })
   @JoinColumn({ name: 'product_id' })
   product: ProductEntity;
 
-  @ManyToOne(type => ConceptEntity, concept => concept.id)
+  @ManyToOne(() => ConceptEntity, concept => concept.id, { eager: true })
   @JoinColumn({ name: 'concept_id' })
   concept: ConceptEntity;
 

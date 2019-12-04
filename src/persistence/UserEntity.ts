@@ -7,16 +7,16 @@ export class UserEntity {
   id: v4String;
 
   @Column({ name: 'first_name', type: 'varchar' })
-  firstName: boolean;
+  firstName: string;
 
   @Column({ name: 'first_surname', type: 'varchar' })
-  firstSurname: boolean;
+  firstSurname: string;
 
   @Column({ name: 'second_surname', type: 'varchar' })
-  secondSurname: boolean;
+  secondSurname: string;
 
   @Column({ name: 'email', type: 'varchar' })
-  email: boolean;
+  email: string;
 
   @Column({ name: 'created_at', type: 'timestamp' })
   createdAt?: Date;

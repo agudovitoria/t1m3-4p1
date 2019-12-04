@@ -5,25 +5,18 @@ import { Logger } from '@nestjs/common';
 const deleteById = async (table: any, id: v4String) => {
   const connection: Connection = getConnection();
 
+  Logger.debug(`Deleting ${id} from ${table}`);
+
   return connection
     .createQueryBuilder()
     .delete()
     .from(table)
     .where('id=:id', { id })
     .execute()
-    .then(() => Logger.debug('Deleted successfully!'))
+    .then(() => Logger.debug(`Deleted ${id} from ${table} successfully!`))
     .catch(({ message }: { message: string }) => Logger
-      .error(`Error when deleting: ${message}`));
+      .error(`Error deleting ${id} from ${table}: ${message}`));
 };
 
-export const clean = (entities: any) => {
-  Object.keys(entities)
-    .map(table => {
-      const entity = entities[table];
-
-      entity.map(async ({ id }: { id: v4String }) => {
-        Logger.debug(`Deleting from ${table} with id ${id}`);
-        await deleteById(table, id);
-      });
-    });
-};
+export const clean = (entities: any) => Object.keys(entities)
+  .map(table => entities[table].map(async ({ id }: { id: v4String }) => await deleteById(table, id)));

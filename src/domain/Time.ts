@@ -1,32 +1,25 @@
 import { TimeEntity } from '../persistence/TimeEntity';
 import { v4String } from 'uuid/interfaces';
 import v4 = require('uuid/v4');
+import User from './User';
+import Product from './Product';
+import Concept from './Concept';
 
 export default class Time {
     id: v4String;
-    user: v4String;
+    user: User;
     date: Date;
-    product: v4String;
-    concept: v4String;
+    product: Product;
+    concept: Concept;
     timing: number;
     validated: boolean;
 
-    constructor() {
-        this.id = null;
-        this.user = null;
-        this.date = new Date();
-        this.product = null;
-        this.concept = null;
-        this.timing = 0;
-        this.validated = false;
-    }
-
     fromEntity(timeEntity: TimeEntity): Time {
         this.id = timeEntity.id;
-        this.user = timeEntity.user;
+        this.user = new User().fromEntity(timeEntity.user);
+        this.product = new Product().fromEntity(timeEntity.product);
+        this.concept = new Concept().fromEntity(timeEntity.concept);
         this.date = timeEntity.date;
-        this.product = timeEntity.product;
-        this.concept = timeEntity.concept;
         this.timing = timeEntity.timing;
         this.validated = timeEntity.validated;
 
@@ -59,10 +52,10 @@ export default class Time {
 
     toJson(): object {
         return {
-            user: this.user,
+            user: this.user.toJson(),
             date: this.date,
-            product: this.product,
-            concept: this.concept,
+            product: this.product.toJson(),
+            concept: this.concept.toJson(),
             timing: this.timing,
             validated: this.validated,
         };
