@@ -3,15 +3,15 @@ import { v4String } from 'uuid/interfaces';
 
 @Entity('products')
 export class ProductEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: v4String;
+  @PrimaryGeneratedColumn('uuid')
+  id: v4String;
 
-    @Column({type: 'varchar'})
-    name: string;
+  @Column({ type: 'varchar' })
+  name: string;
 
-    @Column({ name: 'created_at', type: 'timestamp' })
-    createdAt?: Date;
+  @Column({ name: 'created_at', type: 'timestamp' })
+  createdAt?: Date;
 
-    @Column({ name: 'updated_at', type: 'timestamp' })
-    updatedAt?: Date;
+  @Column({ name: 'updated_at', type: 'timestamp' })
+  updatedAt?: Date;
 }
