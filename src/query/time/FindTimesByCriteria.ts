@@ -8,14 +8,14 @@ import { TimeMapper } from '../../domain/mapper/TimeMapper';
 
 @Injectable()
 export class FindTimesByCriteria implements TimeQuery {
-    constructor(
-        private readonly repository: TimePostgresRepository) {
-    }
+  constructor(
+    private readonly mapper: TimeMapper,
+    private readonly repository: TimePostgresRepository) {
+  }
 
-    async execute(timeSearchCriteria: TimeSearchCriteria): Promise<Time[]> {
-        return this.repository.find(timeSearchCriteria)
-            .then(timeEntities => timeEntities
-                .map((timeEntity: TimeEntity) => new TimeMapper()
-                    .fromEntity(timeEntity)));
-    }
+  async execute(timeSearchCriteria: TimeSearchCriteria): Promise<Time[]> {
+    return this.repository.find(timeSearchCriteria)
+      .then(timeEntities => timeEntities
+        .map((timeEntity: TimeEntity) => this.mapper.fromEntity(timeEntity)));
+  }
 }

@@ -4,15 +4,26 @@ import Time from '../Time';
 import { UserMapper } from './UserMapper';
 import { ProductMapper } from './ProductMapper';
 import { ConceptMapper } from './ConceptMapper';
+import { Inject } from '@nestjs/common';
 
 export class TimeMapper implements DomainMapper<Time, TimeEntity> {
+  constructor(
+    @Inject(UserMapper)
+    private readonly userMapper: UserMapper,
+    @Inject(ConceptMapper)
+    private readonly conceptMapper: ConceptMapper,
+    @Inject(ProductMapper)
+    private readonly productMapper: ProductMapper,
+  ) {
+  }
+
   fromEntity(timeEntity: TimeEntity): Time {
     const time = new Time();
     time.id = timeEntity.id;
-    time.user = new UserMapper().fromEntity(timeEntity.user);
+    time.user = timeEntity.user;
     time.date = timeEntity.date;
-    time.product = new ProductMapper().fromEntity(timeEntity.product);
-    time.concept = new ConceptMapper().fromEntity(timeEntity.concept);
+    time.product = timeEntity.product;
+    time.concept = timeEntity.concept;
     time.timing = timeEntity.timing;
     time.validated = timeEntity.validated;
 
@@ -21,11 +32,16 @@ export class TimeMapper implements DomainMapper<Time, TimeEntity> {
 
   toEntity(domain: Time): TimeEntity {
     const timeEntity = new TimeEntity();
-    timeEntity.id = domain.id;
-    timeEntity.user = new UserMapper().toEntity(domain.user);
+    if (domain.id) {
+      timeEntity.id = domain.id;
+    }
+    // TODO: Comprobar que existe con un findOne antes
+    timeEntity.user = domain.user;
     timeEntity.date = domain.date;
-    timeEntity.product = new ProductMapper().toEntity(domain.product);
-    timeEntity.concept = new ConceptMapper().toEntity(domain.concept);
+    // TODO: Comprobar que existe con un findOne antes
+    timeEntity.product = domain.product;
+    // TODO: Comprobar que existe con un findOne antes
+    timeEntity.concept = domain.concept;
     timeEntity.timing = domain.timing;
     timeEntity.validated = domain.validated;
 
@@ -35,10 +51,10 @@ export class TimeMapper implements DomainMapper<Time, TimeEntity> {
   fromRequest(request: any): Time {
     const time = new Time();
     time.id = request.id;
-    time.user = new UserMapper().fromEntity(request.user);
+    time.user = request.user;
     time.date = request.date;
-    time.product = new ProductMapper().fromEntity(request.product);
-    time.concept = new ConceptMapper().fromEntity(request.concept);
+    time.product = request.product;
+    time.concept = request.concept;
     time.timing = request.timing;
     time.validated = request.validated;
 
@@ -48,10 +64,10 @@ export class TimeMapper implements DomainMapper<Time, TimeEntity> {
   toResponse(domain: Time): object {
     return {
       id: domain.id,
-      user: new UserMapper().toResponse(domain.user),
+      user: domain.user,
       date: domain.date,
-      product: new ProductMapper().toResponse(domain.product),
-      concept: new ConceptMapper().toResponse(domain.concept),
+      product: domain.product,
+      concept: domain.concept,
       timing: domain.timing,
       validated: domain.validated,
     };

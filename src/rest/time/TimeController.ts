@@ -5,11 +5,13 @@ import { FindTimesByCriteria } from '../../query/time/FindTimesByCriteria';
 import { AddTimeUseCase } from '../../usecase/time/AddTimeUseCase';
 import TimeSearchCriteria from '../../domain/request/TimeSearchCriteria';
 import { validateOrReject } from 'class-validator';
+import { TimeMapper } from '../../domain/mapper/TimeMapper';
 
 @Controller('times')
 export class TimeController {
   constructor(
     private readonly log: Logger,
+    private readonly mapper: TimeMapper,
     private readonly getTimeByUserAndDate: FindTimesByCriteria,
     private readonly addTimeUseCase: AddTimeUseCase) {}
 
@@ -94,6 +96,6 @@ export class TimeController {
   add(@Body() timeRequest: TimeRequest): Promise<Time> {
     this.log.debug(`Requested add new time for user ${timeRequest.user} by date ${timeRequest.date}`);
 
-    return this.addTimeUseCase.execute(new Time().fromRequest(timeRequest));
+    return this.addTimeUseCase.execute(this.mapper.fromRequest(timeRequest));
   }
 }

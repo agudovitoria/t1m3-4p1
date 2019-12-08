@@ -1,4 +1,5 @@
-import { MigrationInterface, QueryRunner, Table, TableColumn, TableForeignKey, TableIndex } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableForeignKey, TableIndex } from 'typeorm';
+
 const TABLE_NAME = 'times';
 
 export class CreateTimes1575362582359 implements MigrationInterface {
@@ -31,6 +32,7 @@ export class CreateTimes1575362582359 implements MigrationInterface {
                 {
                     name: 'updated_at',
                     type: 'timestamp',
+                    isNullable: true,
                 },
                 {
                     name: 'product_id',

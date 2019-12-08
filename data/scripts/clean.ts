@@ -1,8 +1,8 @@
-import { Connection, createConnection, getConnection } from 'typeorm';
-import { v4String } from 'uuid/interfaces';
+import { Connection, getConnection } from 'typeorm';
+import { v4 } from 'uuid/interfaces';
 import { Logger } from '@nestjs/common';
 
-const deleteById = async (table: any, id: v4String) => {
+const deleteById = async (table: any, id: v4) => {
   const connection: Connection = getConnection();
 
   Logger.debug(`Deleting ${id} from ${table}`);
@@ -19,4 +19,4 @@ const deleteById = async (table: any, id: v4String) => {
 };
 
 export const clean = (entities: any) => Object.keys(entities)
-  .map(table => entities[table].map(async ({ id }: { id: v4String }) => await deleteById(table, id)));
+  .map(table => entities[table].map(async ({ id }: { id: v4 }) => await deleteById(table, id)));

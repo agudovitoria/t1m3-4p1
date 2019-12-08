@@ -1,7 +1,7 @@
 import Concept from '../../domain/Concept';
 import { Controller, Get, Logger, Query } from '@nestjs/common';
 import TimeSearchCriteria from '../../domain/request/TimeSearchCriteria';
-import { FindConceptsByCriteria } from '../../query/concept/find-concepts-by-criteria';
+import { FindConceptsByCriteria } from '../../query/concept/FindConceptsByCriteria';
 import { validateOrReject } from 'class-validator';
 
 @Controller('concepts')

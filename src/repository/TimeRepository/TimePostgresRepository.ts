@@ -2,7 +2,7 @@ import { TimeRepository } from './TimeRepository';
 import { TimeEntity } from '../../persistence/TimeEntity';
 import { Injectable } from '@nestjs/common';
 import TimeSearchCriteria from '../../domain/request/TimeSearchCriteria';
-import { v4String } from 'uuid/interfaces';
+import { v4 } from 'uuid/interfaces';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -17,7 +17,7 @@ export default class TimePostgresRepository implements TimeRepository {
     return this.repository.find(timeSearchCriteria.getCriteria());
   }
 
-  async findById(id: v4String): Promise<TimeEntity> {
+  async findById(id: v4): Promise<TimeEntity> {
     return this.repository.findOne(id.toString());
   }
 

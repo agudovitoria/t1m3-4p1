@@ -1,5 +1,5 @@
-import { v4String } from 'uuid/interfaces';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { v4 } from 'uuid/interfaces';
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { UserEntity } from './UserEntity';
 import { ProductEntity } from './ProductEntity';
 import { ConceptEntity } from './ConceptEntity';
@@ -7,21 +7,18 @@ import { ConceptEntity } from './ConceptEntity';
 @Entity('times')
 export class TimeEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: v4String;
+  id: v4;
 
-  @ManyToOne(() => UserEntity, user => user.id, { eager: true })
-  @JoinColumn({ name: 'user_id' })
+  @Column({ name: 'user_id', type: 'uuid' })
   user: UserEntity;
 
   @Column({ type: 'date' })
   date: Date;
 
-  @ManyToOne(() => ProductEntity, product => product.id, { eager: true })
-  @JoinColumn({ name: 'product_id' })
+  @Column({ name: 'product_id', type: 'uuid' })
   product: ProductEntity;
 
-  @ManyToOne(() => ConceptEntity, concept => concept.id, { eager: true })
-  @JoinColumn({ name: 'concept_id' })
+  @Column({ name: 'concept_id', type: 'uuid' })
   concept: ConceptEntity;
 
   @Column({ type: 'int' })
@@ -35,4 +32,14 @@ export class TimeEntity {
 
   @Column({ name: 'updated_at', type: 'timestamp' })
   updatedAt?: Date;
+
+  @BeforeInsert()
+  addCreatedAt() {
+    this.createdAt = new Date();
+  }
+
+  @BeforeUpdate()
+  addUpdatedAt() {
+    this.updatedAt = new Date();
+  }
 }

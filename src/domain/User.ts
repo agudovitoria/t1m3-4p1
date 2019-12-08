@@ -1,7 +1,7 @@
-import { v4String } from 'uuid/interfaces';
+import { v4 } from 'uuid/interfaces';
 
 export default class User {
-  id: v4String;
+  id: v4;
   firstName: string;
   firstSurname: string;
   secondSurname: string;

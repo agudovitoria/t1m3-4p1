@@ -1,9 +1,9 @@
 import { Connection, getConnection } from 'typeorm';
 import { Logger } from '@nestjs/common';
-import { v4String } from 'uuid/interfaces';
+import { v4 } from 'uuid/interfaces';
 
 const insertEntityIntoTable = async (table: string, entities: any[]) => {
-  const ids: v4String[] = entities.map(e => e.id );
+  const ids: v4[] = entities.map(e => e.id );
   const connection: Connection = getConnection();
 
   Logger.debug(`Inserting into ${table}`, ids.toString());

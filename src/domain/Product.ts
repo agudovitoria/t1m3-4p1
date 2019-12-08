@@ -1,6 +1,6 @@
-import { v4String } from 'uuid/interfaces';
+import { v4 } from 'uuid/interfaces';
 
 export default class Product {
-  id: v4String;
+  id: v4;
   name: string;
 }

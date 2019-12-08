@@ -1,10 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { v4String } from 'uuid/interfaces';
+import { v4 } from 'uuid/interfaces';
 
 @Entity('concepts')
 export class ConceptEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: v4String;
+  id: v4;
 
   @Column({ type: 'varchar' })
   name: string;
