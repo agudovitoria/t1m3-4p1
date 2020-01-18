@@ -1,26 +1,31 @@
 import { Module } from '@nestjs/common';
-import { TimeModule } from './rest/time/Time.module';
+import { ConfigModule } from './config/config.module';
+import { RMQModule } from 'nestjs-rmq';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from 'nestjs-config';
-import * as path from 'path';
+import { TimeModule } from './time.module';
+import { ConfigService } from './config/config.service';
 
 @Module({
   imports: [
-    ConfigModule.load(path.resolve(__dirname, 'src', 'config', 'database.ts')),
-    TypeOrmModule.forRootAsync({
-      useFactory: (config: ConfigService) => ({
-        type: config.get('DB_TYPE'),
-        host: config.get('DB_HOST'),
-        port: parseInt(config.get('DB_PORT'), 10),
-        username: config.get('DB_USER'),
-        password: config.get('DB_PASSWORD'),
-        database: config.get('DB_NAME'),
-      }),
-        inject: [ConfigService],
-    }),
+    ConfigModule,
+    TypeOrmModule.forRoot(),
     TimeModule,
-    // ConceptModule,
+    RMQModule.forRoot({
+      exchangeName: 'default',
+      connections: [
+        {
+          login: 'guest',
+          password: 'guest',
+          host: 'localhost',
+        },
+      ],
+      queueName: 'times',
+    }),
   ],
 })
 export class AppModule {
+  constructor(configService: ConfigService) {
+    // tslint:disable-next-line:no-console
+    console.debug(configService.get('AMQP_TOPIC_TIMES'));
+  }
 }

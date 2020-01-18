@@ -3,7 +3,7 @@ import * as request from 'supertest';
 import * as uuid from 'uuid';
 import * as moment from 'moment';
 import { when } from 'jest-when';
-import { TimeModule } from '../../../src/rest/time/Time.module';
+import { TimeModule } from '../../../src/time.module';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { FindTimesByCriteria } from '../../../src/query/time/FindTimesByCriteria';
 import { AddTimeUseCase } from '../../../src/usecase/time/AddTimeUseCase';

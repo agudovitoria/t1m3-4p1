@@ -2,18 +2,21 @@ import Time from '../../domain/Time';
 import { Body, Controller, Get, Logger, Post, Query } from '@nestjs/common';
 import TimeRequest from '../../domain/request/TimeRequest';
 import { FindTimesByCriteria } from '../../query/time/FindTimesByCriteria';
-import { AddTimeUseCase } from '../../usecase/time/AddTimeUseCase';
 import TimeSearchCriteria from '../../domain/request/TimeSearchCriteria';
 import { validateOrReject } from 'class-validator';
 import { TimeMapper } from '../../domain/mapper/TimeMapper';
+import { AddTimeUseCase } from '../../usecase/time/AddTimeUseCase';
+import Identifier from '../../domain/Identifier';
 
 @Controller('times')
 export class TimeController {
   constructor(
-    private readonly log: Logger,
+    private readonly logger: Logger,
     private readonly mapper: TimeMapper,
     private readonly getTimeByUserAndDate: FindTimesByCriteria,
-    private readonly addTimeUseCase: AddTimeUseCase) {}
+    private readonly addTimeUseCase: AddTimeUseCase) {
+    this.logger = new Logger(TimeController.name);
+  }
 
   /**
    * @api {get} /times/ Get all user timings by date
@@ -85,7 +88,7 @@ export class TimeController {
    */
   @Get()
   findByCriteria(@Query() criteria: TimeSearchCriteria): Promise<Time[]> {
-    this.log.debug(`Requested get times for user ${criteria.user} by date ${criteria.date}`);
+    this.logger.debug(`GET Times by criteria: ${JSON.stringify(criteria.getCriteria())}`);
 
     return validateOrReject(criteria)
       .then(() => this.getTimeByUserAndDate.execute(criteria));
@@ -93,8 +96,8 @@ export class TimeController {
   }
 
   @Post()
-  add(@Body() timeRequest: TimeRequest): Promise<Time> {
-    this.log.debug(`Requested add new time for user ${timeRequest.user} by date ${timeRequest.date}`);
+  add(@Body() timeRequest: TimeRequest): Promise<Identifier> {
+    this.logger.debug(`Requested add new time for user ${timeRequest.user} by date ${timeRequest.date}`);
 
     return this.addTimeUseCase.execute(this.mapper.fromRequest(timeRequest));
   }
